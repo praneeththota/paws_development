@@ -4,6 +4,7 @@ var db = require('./models/index')
 router.get('/hello', async(ctx) => {
   ctx.body = "hello world again"
 })
+const policies = require('./controller/policies.controller.js');
 // policies routes
 router.get('/policies', async(ctx) => {
    var policies = await db.policy.findAll();

@@ -7,6 +7,12 @@ router.get('/hello', async(ctx) => {
   ctx.body = "hello world again"
 })
 // policies routes
+router.get("/", async ctx => {
+  ctx.body = {
+    data: "Sending some JSON"
+  };
+});
+
 router.get('/policies', async(ctx) => {
    var policies = await db.policy.findAll();
    ctx.body = policies
@@ -16,6 +22,19 @@ router.post('/user_create', async(ctx) => {
     firstName: ctx.request.body.firstName
   })
   ctx.body = "Successfully create user"
+})
+
+router.get('/settings', async(ctx) => {
+  var settings =  await db.settings.findAll()
+  ctx.body = "hello settings"
+})
+router.get('/policy/:id', async(ctx) => {
+  const id = ctx.params.id
+  if(!isNaN(ctx.params.id)) {
+    console.log("query on id")
+    return ctx.body = await db.policy.findById(id)
+  }
+  ctx.body = "hello world"
 })
 router.put('/update_policy', async(ctx) =>{
   policy = await db.policy.findById(1)
